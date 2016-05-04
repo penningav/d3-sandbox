@@ -3,100 +3,11 @@
   <head>
     <meta charset="utf-8">
     <title>d3-sandbox</title>
-    <style>
-      svg {
-        display: block;
-        margin: auto;
-      }
-      </style>
+    <link rel="stylesheet" href="app.css">
   </head>
   <body>
     <script src="d3.v3.min.js"></script>
-    <script>
-      {
-        const width = 960;
-        const height = 160;
-        const dataset = [5, 10, 15, 20, 25];
-        const eqw = width / dataset.length;
-
-        const svg = d3
-          .select('body')
-          .append('svg');
-
-        svg
-          .attr('width', width)
-          .attr('height', height);
-
-        const circles = svg
-          .selectAll('circle')
-          .data(dataset)
-          .enter()
-          .append('circle');
-
-        circles
-          .attr('cx', (data, i) => (i * eqw) + (eqw - data) / 2)
-          .attr('cy', (data, i) => 100)
-          .attr('r', (data, i) => data);
-
-        circles
-          .attr('stroke-width', data => data / 1.5)
-          .attr('fill', (data, i) => '#848484')
-          .attr('stroke', (data, i) => '#e4e4e4');
-
-        circles
-          .transition()
-          .duration(500)
-          .delay((data, i) => i * 10)
-          .attr('fill', (data, i) => i % 2 ? '#ee66aa' : '#7166ee')
-          .attr('stroke', (data, i) => i % 2 ? '#f49cc8' : '#a39cf4');
-      }
-    </script>
-    <script>
-      {
-        const width = 960;
-        const height = 160;
-        const w = 50;
-        const dataset = [70, 35, 55, 20, 85];
-        const eqw = width / dataset.length;
-
-        const svg = d3
-          .select('body')
-          .append('svg');
-
-        svg
-          .attr('width', width)
-          .attr('height', height);
-
-        svg
-          .selectAll('rect')
-          .data(dataset)
-          .enter()
-          .append('rect')
-          .attr('x', (data, i) => (i * eqw) + (eqw - w) / 2)
-          .attr('y', (data, i) => height - data)
-          .attr('width', (data, i) => w)
-          .attr('height', (data, i) => 0)
-          .attr('fill', '#66d7ee')
-          .attr('opacity', (data, i) => data / 100);
-
-        svg
-          .selectAll('rect')
-          .transition()
-          .duration(500)
-          .delay((data, i) => i * 10)
-          .attr('height', (data, i) => data);
-
-        svg
-          .selectAll('text')
-          .data(dataset)
-          .enter()
-          .append('text')
-          .attr('x', (data, i) => 15 + (i * eqw) + (eqw - w) / 2)
-          .attr('y', (data, i) => height - data - 10)
-          .attr('fill', '#0a4e5c')
-          .attr('font-family', 'sans-serif')
-          .text(data => data);
-      }
-    </script>
+    <script src="d3/circle.js"></script>
+    <script src="d3/bar.js"></script>
   </body>
 </html>
