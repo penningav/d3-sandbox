@@ -1,6 +1,6 @@
 {
   const width = 960;
-  const height = 160;
+  const height = 480;
   const dataset = [
     [5,   20],
     [480, 90],
@@ -22,13 +22,36 @@
     .attr('width', width)
     .attr('height', height);
 
+  const padX = 80;
+  const padY = 40;
+
+  const scaleX = d3.scale.linear()
+    .domain([
+      d3.min(dataset, d => d[0]),
+      d3.max(dataset, d => d[0])
+    ])
+    .range([
+      0 + padX,
+      width - padX
+    ]);
+
+  const scaleY = d3.scale.linear()
+    .domain([
+      d3.min(dataset, d => d[1]),
+      d3.max(dataset, d => d[1])
+    ])
+    .range([
+      height - padY,
+      0 + padY
+    ]);
+
   const plots = svg
     .selectAll('circle')
     .data(dataset)
     .enter()
     .append('circle')
-    .attr('cx', d => d[0])
-    .attr('cy', d => d[1])
+    .attr('cx', d => scaleX(d[0]))
+    .attr('cy', d => scaleY(d[1]))
     .attr('r', d => Math.sqrt(height - d[1]))
     .attr('fill', '#66ee78');
 
@@ -37,8 +60,8 @@
     .data(dataset)
     .enter()
     .append('text')
-    .attr('x', d => d[0])
-    .attr('y', d => d[1])
+    .attr('x', d => scaleX(d[0]))
+    .attr('y', d => scaleY(d[1]))
     .text(d => `${d[0]}, ${d[1]}`)
     .attr('fill', '#0a5c15')
     .attr('font-family', 'sans-serif');
